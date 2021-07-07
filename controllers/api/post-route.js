@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
         })
         .then(post => {
             if (!post) {
-                res.status(404).json({ message: 'No post found with this id' });
+                res.status(404).json({ message: 'Post not found' });
                 return;
             }
             res.json(post);
@@ -84,3 +84,54 @@ router.get('/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
+
+router.post('/', withAuth, (req, res) => {
+    Post.create({
+            title: req.body.title,
+            content: req.body.content,
+            user_id: req.session.user_id
+        })
+        .then(post => res.json(post))
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+router.put('/:id', withAuth, (req, res) => {
+    Post.update({
+            title: req.body.title,
+            content: req.body.content
+        }, {
+            where: {
+                id: req.params.id
+            }
+        }).then(post => {
+            if (!post) {
+                res.status(404).json({ message: 'Post not found' });
+                return;
+            }
+            res.json(post);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
+
+router.delete('/:id', withAuth, (req, res) => {
+    Post.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(post => {
+        if (!post) {
+            res.status(404).json({ message: 'Post not found' });
+            return;
+        }
+        res.json(post);
+    }).catch(err => {
+        res.status(500).json(err);
+    });
+});
+
+module.exports = router;
