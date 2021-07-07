@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 
+//function to fetch all users
 router.get('/', (req, res) => {
     User.findAll({
             attributes: { exclude: ['[password'] }
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
         });
 });
 
-
+//function to fetch user by id
 router.get('/:id', (req, res) => {
     User.findOne({
             attributes: { exclude: ['password'] },
@@ -54,6 +55,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
+//function to create a new yser and save to session
 router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
@@ -71,3 +73,23 @@ router.post('/', (req, res) => {
             res.status(500).json(err);
         });
 });
+
+//function to delete a user.
+router.delete('/:id', (req, res) => {
+    User.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(user => {
+            if (!user) {
+                res.status(404).json({ message: 'user not found' });
+                return;
+            }
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
+
