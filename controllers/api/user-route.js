@@ -74,6 +74,28 @@ router.post('/', (req, res) => {
         });
 });
 
+//function to update a user
+router.put('/:id', (req, res) => {
+
+    User.update(req.body, {
+            individualHooks: true,
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(user => {
+            if (!user[0]) {
+                res.status(404).json({ message: 'user not found' });
+                return;
+            }
+            res.json(user);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+
+});
+
 //function to delete a user.
 router.delete('/:id', (req, res) => {
     User.destroy({
@@ -93,6 +115,7 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+//function to log in a user successfully.
 router.post('/login', (req, res) => {
     User.findOne({
             where: {
@@ -119,5 +142,16 @@ router.post('/login', (req, res) => {
         .catch(err => {
             res.status(500).json(err);
         });
+});
+
+//function to log out the user.
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(200).end();
+        });
+    } else {
+        res.status(404).end();
+    }
 });
 
