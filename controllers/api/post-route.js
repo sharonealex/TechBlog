@@ -40,3 +40,47 @@ router.get('/', (req, res) => {
             res.status(500).json(err);
         });
 });
+
+
+router.get('/:id', (req, res) => {
+    Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: [
+                'id',
+                'content',
+                'title',
+                'created_at'
+            ],
+            include: [{
+                    model: User,
+                    attributes: ['username']
+                },
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'comment_text', 
+                        'post_id', 
+                        'user_id', 
+                        'created_at'
+                    ],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                }
+            ]
+        })
+        .then(post => {
+            if (!post) {
+                res.status(404).json({ message: 'No post found with this id' });
+                return;
+            }
+            res.json(post);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
