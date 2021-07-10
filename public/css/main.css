@@ -29,10 +29,21 @@
     font-size: large;
   }
   #nav-header {
-    color: #d9ead3;
+    color: #231010;
     font-size: xx-large;
     padding: 20px;
   }
+  #nav-header-border{
+    border: 5px;
+    background-color: wheat;
+    border-radius: 5px;
+    border: 1px solid #231010;
+    box-shadow: 5px 10px wheat;
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+  }
+
   /* Post card styling */
   .card {
     /* Add shadows to create the "card" effect */

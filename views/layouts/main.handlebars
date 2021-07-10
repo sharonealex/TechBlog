@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Blog</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+    <meta charset="utf-8">
+    <title>Tech Blog</title>
+    <link rel="stylesheet" href="/css/main.css">
+
 </head>
 
 <body>
-  <div class="wrapper">
-      <header class="hero">
-          <div>
-            <nav class"nav">
-                    <a class="link" href="/">Home</a>
-                    <a class="link" href="/dashboard">Dashboard</a>
-                    {{#if loggedIn}}
-                    <a class="link" href="/" id="logout">Logout</a>
-                    {{else}}
-                    <a class="link" href="/login">Login</a>
-                    {{/if}}
-                </nav>          
-          </div>
+    {{!-- Nav bar that goes on every page --}}
+    <nav id="navbar">
+        <ul id="navbar-ul">
+            <li>
+                <p><a class="link" href="/">Home</a></p>
+            </li>
+             <li>
+                <p><a class="link" href="/dashboard">Dashboard</a></p>
+            </li>
+            {{#if loggedIn}}
+            <li>
+                <p><button id="logout-btn" class="btn-no-style">Logout</button> </p>
+            </li>
 
-          <h1 class="app-title"><i class="fab "></i>The Tech Blog</h1>
-      </header>
-
-    <main>
-      {{{ body }}}
-    </main>
-  </div>
-
-    {{#if loggedIn}}
-    <script src="/javascript/logout.js"></script>
-    {{/if}}
+            {{else}}
+            <li>
+                <p><a class="link" href="/login">Login</a></p>
+            </li>
+            {{/if}}
+        </ul>
+        <div id="nav-header-border">
+              <h1 id="nav-header">The Tech Blog</h1>
+        </div>
+         
+      
+    </nav>
+    {{{body}}}
 
 </body>
+{{!--
+<script src="/js/nav.js"></script> --}}
+<script src="/js/logout.js"></script>
+<script src="/js/home.js"></script>
 
 </html>
