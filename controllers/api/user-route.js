@@ -57,15 +57,18 @@ router.get('/:id', (req, res) => {
 
 //function to create a new yser and save to session
 router.post('/', (req, res) => {
+    console.log('heree')
     User.create({
         username: req.body.username,
         password: req.body.password
     })
     .then(user => {
+        console.log(user)
             req.session.save(() => {
                 req.session.user_id = user.id;
                 req.session.username = user.username;
                 req.session.loggedIn = true;
+                console.log("success now", user)
                 res.json(user);
             });
         })
@@ -117,11 +120,14 @@ router.delete('/:id', (req, res) => {
 
 //function to log in a user successfully.
 router.post('/login', (req, res) => {
+    console.log('inside login')
     User.findOne({
             where: {
                 username: req.body.username
             }
         }).then(user => {
+            console.log("test from db")
+            console.log('login', user)
             if (!user) {
                 res.status(400).json({ message: 'user not found' });
                 return;
