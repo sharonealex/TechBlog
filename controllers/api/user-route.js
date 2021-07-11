@@ -120,12 +120,12 @@ router.delete('/:id', (req, res) => {
 
 //function to log in a user successfully.
 router.post('/login', (req, res) => {
-    console.log('inside login')
+    console.log('inside login', req.body.username )
     User.findOne({
             where: {
                 username: req.body.username
             }
-        }).then(user => {
+        }).then((user) => {
             console.log("test from db")
             console.log('login', user)
             if (!user) {
