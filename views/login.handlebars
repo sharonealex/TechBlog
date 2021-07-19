@@ -1,36 +1,26 @@
 <link rel="stylesheet" href="./css/login.css">
-<div class="wrapper">
-    <form class="login-form">
-        <div class="padding-md">
-            <label for="email-login">username:</label>
-            <input type="text" id="email-login" />
-        </div>
-        <div class="padding-md">
-            <label for="password-login">password:</label>
-            <input type="password" id="password-login" />
-        </div>
-        <div class="padding-md">
-            <button type="submit" id="login-btn">login</button>
-        </div>
-    </form>
+<section class="form-container">
 
-    <form class="signup-form">
-        <div>
-            <label for="username-signup">username:</label>
-            <input id="username-signup" type="text">
-        </div>
-        <div>
-            <label for="email-signup">email:</label>
-            <input type="text" id="email-signup" />
-        </div>
-        <div>
-            <label for="password-signup">password:</label>
-            <input type="password" id="password-signup" />
-        </div>
-        <div>
-            <button type="submit" id="signup-btn">signup</button>
-        </div>
-    </form>
-</div>
-{{!-- Load the login script --}}
+   
+
+    <fieldset id="login-form">
+        <form>
+             <section >
+                     <h1 style="color: white;  text-align: center;">Login</h1>
+                </section>
+            <section class="form-group">
+                <input class="form-input" type="text" id="username" placeholder="Username" maxlength="50" autocomplete="off">
+            </section>
+             <section class="form-group">
+                    <input class="form-input" type="password" id="password" placeholder="Password" maxlength="15">
+                </section>
+                 <div class="submitBtnDiv">
+                    <input class="submitBtn" id="login-btn" type="submit" id="login" value="Sign In">
+                </div>
+        </form>
+    </fieldset>
+    <a href="/signup">
+    <p>Dont have an account yet? Sign Up here</p></a>
+</section>
+
 <script src="/js/login.js"></script>

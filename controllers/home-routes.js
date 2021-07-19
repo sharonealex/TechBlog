@@ -88,6 +88,10 @@ router.get("/viewpost/:id", (req, res) => {
   //serve up the login page
   router.get("/login", (req, res) => {
     console.log("Is user logged in for this session?", req.session.loggedIn);
+    if (req.session.loggedIn) {
+      res.redirect("/home");
+      return;
+    }
     res.render("login", { loggedIn: req.session.loggedIn });
   });
   

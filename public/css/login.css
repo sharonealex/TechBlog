@@ -1,4 +1,39 @@
-.wrapper {
-    padding: 20px;
-    align-content: right;
-  }
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  padding-bottom: 25px;
+}
+
+
+
+#login-form {
+  margin-top: 30px;
+  width: 500px;
+  padding: 10px 8px;
+    margin: 0;
+    background-color: #231010;
+    text-decoration-color: white;
+    
+}
+
+.submitBtnDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.form-group .form-input {
+  width: 500px;
+  padding: 10px 8px;
+  margin: 0 0 5px 10px;
+  font-size: 20px;
+}
+
+.form-group input[type="submit"] {
+  width: 500px;
+  padding: 10px 8px;
+}
