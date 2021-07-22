@@ -85,7 +85,7 @@ router.get("/viewpost/:id", (req, res) => {
       });
   });
   
-  //serve up the login page
+  //render login page
   router.get("/login", (req, res) => {
     console.log("Is user logged in for this session?", req.session.loggedIn);
     if (req.session.loggedIn) {
@@ -94,6 +94,11 @@ router.get("/viewpost/:id", (req, res) => {
     }
     res.render("login", { loggedIn: req.session.loggedIn });
   });
+
+  //render signup page
+  router.get("/signup", (req, res)=>{
+    res.render("signup");
+  })
   
   //serve up the dashboard
   router.get("/dashboard", (req, res) => {
