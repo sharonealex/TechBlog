@@ -153,10 +153,53 @@ router.get("/viewpost/:id", (req, res) => {
   });
   //load the edit page
   router.get("/edit/:id", (req, res) => {
-    //    post_id: req.postID,
-    res.render("edit-post", {
-      loggedIn: req.session.loggedIn,
-      post_id: req.params.id,
-    });
+    Post.findOne({
+      where: {
+          id: req.params.id
+      },
+      attributes: [
+          'id',
+          'content',
+          'title',
+          'created_at'
+      ],
+      include: [{
+              model: User,
+              attributes: ['username']
+          },
+          {
+              model: Comment,
+              attributes: [
+                  'id',
+                  'comment_text', 
+                  'post_id', 
+                  'user_id', 
+                  'created_at'
+              ],
+              include: {
+                  model: User,
+                  attributes: ['username']
+              }
+          }
+      ]
+  })
+  .then(post => {
+      if (!post) {
+          res.status(404).json({ message: 'Post not found' });
+          return;
+      }
+      const postData = post.get({ plain: true });
+      console.log(postData)
+      res.render("edit-post", {
+        loggedIn: req.session.loggedIn,
+        postId: req.params.id,
+        title: post.title,
+        content: post.content
+      });
+  })
+  .catch(err => {
+      res.status(500).json(err);
+  });
+   
   });
   module.exports = router;
