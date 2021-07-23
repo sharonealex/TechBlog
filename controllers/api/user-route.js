@@ -69,8 +69,9 @@ router.post('/', (req, res) => {
                 req.session.username = user.username;
                 req.session.loggedIn = true;
                 console.log("success now", user)
-                res.json(user);
+                res.json(req.session.user_id );
             });
+            
         })
         .catch(err => {
             res.status(500).json(err);

@@ -1,13 +1,14 @@
+<link rel="stylesheet" href="./css/post.css">
 <div class="card single-post-padding">
     <h1 id="post-title" class="post-header">{{post.title}} </h1>
     <h4>Posted by {{post.user.username}} on 12/1/2020</h4>
     <div class="container">
-        <p id="post-body" class="post-text post-text-padding">{{post.body}}</p>
+        <p id="post-body" class="post-text post-text-padding">{{post.content}}</p>
     </div>
-    {{!-- If this is my post i can edit and delete it --}}
+    {{!-- only allows owner of the post to modify content --}}
     {{#if currentUser}}
-    <button id="edit-btn">Edit</button>
-    <button id="delete-btn">Delete</button>
+    <button id="edit-btn" style="background-color: #231010; color: white">Edit</button>
+    <button id="delete-btn" style="background-color: #231010; color: white">Delete</button>
     {{/if}}
 </div>
 {{!-- Add Comment --}}

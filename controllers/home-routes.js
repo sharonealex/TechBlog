@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, Post, Comment } = require("../models");
 const sequelize = require("../config/connection");
+const withAuth = require("../utils/auth");
 //home route server homepage
 router.get("/", (req, res) => {
     console.log("herreee")
@@ -38,12 +39,12 @@ router.get("/", (req, res) => {
 
 //serve up the single post page
 router.get("/viewpost/:id", (req, res) => {
-    //we need to get all posts
+
     Post.findOne({
       where: {
         id: req.params.id,
       },
-      attributes: ["id", "title", "body", "user_id"],
+      attributes: ["id", "title", "content", "user_id"],
       include: [
         {
           model: User,
@@ -71,7 +72,7 @@ router.get("/viewpost/:id", (req, res) => {
           return;
         }
         const post = dbPostData.get({ plain: true }); // serialize all the posts
-        console.log(post);
+        
         const myPost = post.user_id == req.session.user_id;
         res.render("single-post", {
           post,
@@ -99,16 +100,18 @@ router.get("/viewpost/:id", (req, res) => {
   router.get("/signup", (req, res)=>{
     res.render("signup");
   })
+
+
   
   //serve up the dashboard
-  router.get("/dashboard", (req, res) => {
+  router.get("/dashboard", withAuth, (req, res) => {
     //we need to get all posts
     console.log(req.session.user_id, " this is the session id");
     Post.findAll({
       where: {
         user_id: req.session.user_id,
       },
-      attributes: ["id", "title", "body", "user_id"],
+      attributes: ["id", "title", "content", "user_id"],
       include: [
         {
           model: User,
@@ -146,7 +149,7 @@ router.get("/viewpost/:id", (req, res) => {
   });
   
   router.get("/post", (req, res) => {
-    res.render("create-post", { loggedIn: req.session.loggedIn });
+    res.render("new-post", { loggedIn: req.session.loggedIn });
   });
   //load the edit page
   router.get("/edit/:id", (req, res) => {

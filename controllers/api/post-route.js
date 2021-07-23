@@ -88,13 +88,22 @@ router.get('/:id', (req, res) => {
 
 //function to create a new post
 router.post('/', withAuth, (req, res) => {
+    console.log(req.body.title);
+    console.log(req.body.content);
+    console.log(req.body.session)
+    console.log(req.session.user_id);
     Post.create({
             title: req.body.title,
-            content: req.body.content,
+            content: req.body.body,
             user_id: req.session.user_id
         })
-        .then(post => res.json(post))
+        // .then(post => res.json(post))
+        .then((post)=>{
+            console.log(res.json(post));
+            res.json(post);
+        })
         .catch(err => {
+            console.log(err)
             res.status(500).json(err);
         });
 });

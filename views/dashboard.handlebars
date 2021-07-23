@@ -1,5 +1,7 @@
+<link rel="stylesheet" href="./css/post.css">
 <h1 class="padding-20">My Posts</h1>
-<p><a class="link" href="/post">New Post</a></p>
+
+<a href="/post"> <input type="button" class="button" id="newPost-btn" value="+ New Post"></a>    
 {{#each posts as |aPost| }}
 {{!-- Pass in the data to each individual post --}}
 {{> post aPost}}
