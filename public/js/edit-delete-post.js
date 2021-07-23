@@ -13,11 +13,11 @@ async function editPostHandler(event) {
   //handle deleting the post
   async function deletePostHandler(event) {
     event.preventDefault();
-    //make request to post route delete with the current post id in nav bar
-    const post_id = window.location.toString().split("/")[
+    console.log('inside delete')
+    const postId = window.location.toString().split("/")[
       window.location.toString().split("/").length - 1
     ];
-    const response = await fetch("/api/posts/" + post_id, {
+    const response = await fetch("/api/posts/" + postId, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +35,4 @@ async function editPostHandler(event) {
   //handle edit post
   document.querySelector("#edit-btn").addEventListener("click", editPostHandler);
   //handle delete post
-  document
-    .querySelector("#delete-btn")
-    .addEventListener("click", deletePostHandler);
+  document.querySelector("#delete-btn").addEventListener("click", deletePostHandler);
