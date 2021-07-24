@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
     console.log("herreee")
   //we need to get all posts
   Post.findAll({
-    attributes: ["id", "title", "content", "user_id"],
+    attributes: ["id", "title", "content", "user_id",  'created_at'],
     include: [
       {
         model: User,
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
       {
         model: Comment,
         as: "comments",
-        attributes: ["id", "comment_text", "user_id"],
+        attributes: ["id", "comment_text", "user_id",  'created_at'],
       },
     ],
   })
@@ -111,7 +111,7 @@ router.get("/viewpost/:id", (req, res) => {
       where: {
         user_id: req.session.user_id,
       },
-      attributes: ["id", "title", "content", "user_id"],
+      attributes: ["id", "title", "content", "user_id", "created_at"],
       include: [
         {
           model: User,
@@ -121,7 +121,7 @@ router.get("/viewpost/:id", (req, res) => {
         {
           model: Comment,
           as: "comments",
-          attributes: ["id", "comment_text", "user_id"],
+          attributes: ["id", "comment_text", "user_id", "created_at"],
           include: [
             {
               model: User,
